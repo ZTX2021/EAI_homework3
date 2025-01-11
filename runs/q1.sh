@@ -1,0 +1,1 @@
+python src/train.py use_real_model=true policy="mpc" mpc_algo="random" exp_name="q1" eval_only=True num_samples=128 horizon=6

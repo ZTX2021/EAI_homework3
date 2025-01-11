@@ -1,0 +1,1 @@
+python src/train.py use_real_model=false use_td=true policy="mpc" mpc_algo="mppi" exp_name="q5" mixture_coef=0.05

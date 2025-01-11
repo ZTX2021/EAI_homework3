@@ -1,0 +1,7 @@
+multiprocess
+gymnasium
+tensorboard
+termcolor
+pandas
+tqdm
+hydra-core

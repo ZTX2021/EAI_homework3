@@ -106,13 +106,15 @@ class LearnedModel(nn.Module):
 		#TODO
 		
 		# Update moving mean and variance using a momentum term
-		alpha = 0.9  # Momentum term
+		alpha = 0.01  # Momentum term
 		#TODO
-		
-		# self.obs_delta_mean = (1 - alpha) * self.obs_delta_mean + alpha * delta_obs.mean(0)
-		# self.obs_delta_std = (1 - alpha) * self.obs_delta_std + alpha * delta_obs.std(0)
-		self.obs_delta_mean = delta_obs.mean(0)
-		self.obs_delta_std = delta_obs.std(0)
+		mean = torch.mean(next_obs - obs, dim=0)
+		std = torch.std(next_obs - obs, dim=0)
+		alpha = 0.01
+		self.obs_delta_mean = (1 - alpha) * self.obs_delta_mean + alpha * mean
+		self.obs_delta_std = (1 - alpha) * self.obs_delta_std + alpha * std
+		# self.obs_delta_mean = delta_obs.mean(0)
+		# self.obs_delta_std = delta_obs.std(0)
 		
 		# Add a small epsilon for numerical stability
 		self.obs_delta_std = torch.sqrt(self.obs_delta_std**2 + 1e-8)
@@ -488,10 +490,10 @@ class ModelBasedAgent():
 			
 			# Predict next state and reward
 			
-			'''
+			
 			self.model.update_statistics((z if t==0 else next_obses[t-1]), action[t], next_obses[t])
 			self.model_target.update_statistics((z if t==0 else next_obses[t-1]), action[t], next_obses[t])
-			'''
+			
 			z_next_pred, r_pred = self.model.next(z, action[t])
 			# Compute the difference for state prediction (delta)
 			# Q4.2: we want to minimize MSE of z_next_pred vs next_obs

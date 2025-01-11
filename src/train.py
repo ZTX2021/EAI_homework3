@@ -32,7 +32,7 @@ def set_seed(seed):
 def evaluate(env, agent:ModelBasedAgent, num_episodes, step, cfg):
 	"""Evaluate a trained agent and optionally save a video."""
 	episode_rewards = []
-	eval_pb= tqdm.tqdm(range(num_episodes*cfg.episode_length), desc='Evaluating', unit='step')
+	# eval_pb= tqdm.tqdm(range(num_episodes*cfg.episode_length), desc='Evaluating', unit='step')
 	for i in range(num_episodes):
 		obs, done, ep_reward, t = env.reset(), False, 0, 0
 		for t in range(250):
@@ -42,7 +42,7 @@ def evaluate(env, agent:ModelBasedAgent, num_episodes, step, cfg):
 				action = agent.plan(obs, eval_mode=True, step=step, t0=t==0).cpu().numpy()
 			obs, reward, done, _ = env.step(action)
 			ep_reward += reward
-			eval_pb.update(1)
+			# eval_pb.update(1)
 		episode_rewards.append(ep_reward)
 	return np.nanmean(episode_rewards)
 

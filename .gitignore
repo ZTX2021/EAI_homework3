@@ -2,3 +2,6 @@ logs/
 outputs/
 *.txt
 !requirements.txt
+src/_pycache_/
+src/__pycache__/agent.cpython-310.pyc
+*.pyc
